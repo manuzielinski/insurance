@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "status": "WARN",
+    "Appenders": {
+      "Console": {
+        "name": "Console",
+        "JsonTemplateLayout": {
+          "eventTemplateUri": "classpath:LogstashJsonEventLayoutV1.json"
+        }
+      }
+    },
+    "Loggers": {
+      "Root": { "level": "info", "AppenderRef": [{ "ref": "Console" }] }
+    }
+  }
+}

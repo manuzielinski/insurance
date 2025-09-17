@@ -13,8 +13,6 @@
     <artifactId>quoting</artifactId>
     <packaging>jar</packaging>
 
-    <!-- No redefinimos vertx.version ni dependencyManagement: ya vienen del padre -->
-
     <dependencies>
         <!-- Vert.x (versiones tomadas del BOM del padre) -->
         <dependency>
@@ -51,11 +49,17 @@
             <version>2.22.1</version>
         </dependency>
 
-        <!-- Tests JUnit 5 (versión heredada del padre mediante ${junit.version}) -->
+        <!-- Tests JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Vert.x test utils para JUnit 5 -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-junit5</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -76,14 +80,16 @@
                 </configuration>
             </plugin>
 
-            <!-- FAT JAR para Docker/producción-->
+            <!-- FAT JAR para Docker/producción -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals><goal>shade</goal></goals>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>

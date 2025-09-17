@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Insurance Broker Gateway
+  version: "1.0.0"
+paths:
+  /quotes:
+    post:
+      summary: Create quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [customerId, productCode, premium]
+              properties:
+                customerId: { type: string }
+                productCode: { type: string }
+                premium: { type: number, format: double }
+      responses:
+        "201": { description: Created }
+        "400": { description: Bad Request }
+  /quotes/{id}:
+    get:
+      summary: Get quote by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: { type: integer }
+                  customerId: { type: string }
+                  productCode: { type: string }
+                  premium: { type: number }
+                  status: { type: string }
+        "404": { description: Not found }
